@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSOME Payment</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+.payment-container{
+    max-width:800px;
+    margin:50px auto;
+    background:#fff;
+    padding:40px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+h1{
+    color:#ff7200;
+    margin-bottom:20px;
+}
+
+p{
+    margin-bottom:20px;
+    line-height:1.6;
+}
+
+.pay-btn{
+    background:#ff7200;
+    color:#fff;
+    border:none;
+    padding:15px 30px;
+    margin:10px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.pay-btn:hover{
+    background:#000;
+}
+
+#bankDetails{
+    display:none;
+    margin-top:30px;
+    padding:20px;
+    border:2px solid #ff7200;
+    border-radius:10px;
+    text-align:left;
+}
+
+.bank-info{
+    margin:10px 0;
+    font-size:18px;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#ff7200;
+    color:white;
+    padding:12px 25px;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.btn:hover{
+    background:#000;
+}
+
+</style>
+</head>
+<body>
+
+<div class="payment-container">
+
+    <h1>KSOME Course Payment</h1>
+
+    <p>
+        Select your preferred payment method to enroll in the
+        KSOME Livestreaming & Video Edit Course.
+    </p>
+
+    <button class="pay-btn" onclick="showBankDetails()">
+        Bank Transfer
+    </button>
+
+    <button class="pay-btn" onclick="payWithCard()">
+        Pay With Card
+    </button>
+
+    <div id="bankDetails">
+
+        <h2>Bank Transfer Details</h2>
+
+        <div class="bank-info">
+            <strong>Bank:</strong> First Bank
+        </div>
+
+        <div class="bank-info">
+            <strong>Account Number:</strong> 3226618547
+        </div>
+
+        <div class="bank-info">
+            <strong>Account Name:</strong> Isaac Kayode Oladipo
+        </div>
+
+        <p>
+            After making payment, click the button below to complete your enrollment.
+        </p>
+
+        <a href="Enroll.html" class="btn">
+            I Have Made Payment
+        </a>
+
+    </div>
+    <div>
+<a href="Enroll.html" class="btn-home">Back Home</a>
+    </div>
+</div>
+
+<script>
+
+function showBankDetails(){
+    document.getElementById("bankDetails").style.display = "block";
+}
+
+function payWithCard(){
+    window.location.href = "https://paystack.shop/pay/ksome";
+}
+
+</script>
+
+</body>
+</html>
