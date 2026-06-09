@@ -1,0 +1,51 @@
+.service-container{
+    width:85%;
+    margin:50px auto;
+    text-align:center;
+}
+
+.service-container h1{
+    color:#ff7200;
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.service-intro{
+    font-size:20px;
+    margin-bottom:40px;
+    color:#444;
+}
+
+.service-box{
+    background:white;
+    padding:25px;
+    margin:20px 0;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.service-box h2{
+    color:#ff7200;
+    margin-bottom:10px;
+}
+
+.service-box p{
+    font-size:18px;
+    line-height:1.7;
+    color:#333;
+}
+
+.btn-home{
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 30px;
+    background:#ff7200;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    font-size:18px;
+}
+
+.btn-home:hover{
+    background:black;
+}
