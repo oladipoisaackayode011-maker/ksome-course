@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enroll - KSOME</title>
+  <link rel="stylesheet" href="Enroll.css">
+</head>
+<body>
+
+<div class="enroll-container">
+
+  <h1>Course Enrollment Form</h1>
+  <p>Complete the form below to enroll in the KSOME Livestreaming & Video Edit Course.</p>
+
+  <p id="enrollMsg" style="font-weight:bold;"></p>
+
+  <form id="enrollForm">
+
+    <label>Full Name</label>
+    <input type="text" id="fullName" placeholder="Enter your full name" required>
+
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+
+    <label>Phone Number</label>
+    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+
+    <label>Gender</label>
+    <select id="gender" required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+
+    <label>Course Interested In</label>
+    <select id="course" required>
+      <option value="">Select Course</option>
+      <option>Video Editing</option>
+      <option>Livestreaming</option>
+      <option>Podcast Production</option>
+      <option>JET Club Training</option>
+      <option>Complete Package</option>
+    </select>
+
+    <label>Training Mode</label>
+    <select id="mode" required>
+      <option value="">Select Mode</option>
+      <option>Physical</option>
+      <option>Online</option>
+    </select>
+
+    <label>Why do you want to join?</label>
+    <textarea id="reason" rows="5"></textarea>
+
+    <button type="button" onclick="submitEnrollment()">Submit Enrollment </button>
+
+  </form>
+
+</div>
+
+<a href="index.html">Back to Home</a>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC1LV-g2H3yKs_6nbruF1TEbCoV34UX0jI",
+    authDomain: "ksome-website.firebaseapp.com",
+    projectId: "ksome-website",
+    storageBucket: "ksome-website.appspot.com",
+    messagingSenderId: "970299265208",
+    appId: "1:970299265208:web:870e4de77e51e9032e644d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  window.submitEnrollment = async function () {
+    const fullName = document.getElementById("fullName").value.trim();
+    const email    = document.getElementById("email").value.trim();
+    const phone    = document.getElementById("phone").value.trim();
+    const gender   = document.getElementById("gender").value;
+    const course   = document.getElementById("course").value;
+    const mode     = document.getElementById("mode").value;
+    const reason   = document.getElementById("reason").value.trim();
+    const msg      = document.getElementById("enrollMsg");
+    const btn      = document.querySelector("button[onclick='submitEnrollment()']");
+
+    if (!fullName || !email || !phone || !gender || !course || !mode) {
+      msg.style.color = "red";
+      msg.textContent = "❌ Please fill in all required fields.";
+      return;
+    }
+
+    btn.disabled    = true;
+    btn.textContent = "Saving...";
+    msg.style.color = "orange";
+    msg.textContent = "⏳ Submitting your enrollment...";
+
+    try {
+      await addDoc(collection(db, "enrollments"), {
+        fullName, email, phone, gender, course, mode, reason,
+        paid: false,
+        enrolledAt: new Date().toISOString()
+      });
+
+      msg.style.color = "green";
+      msg.textContent = "✅ Enrollment saved! Redirecting to payment...";
+
+      setTimeout(() => { window.location = "payment.html"; }, 1500);
+
+    } catch (error) {
+      console.error("Enrollment error:", error);
+      msg.style.color  = "red";
+
+      // Show specific helpful error
+      if (error.code === "permission-denied") {
+        msg.textContent = "❌ Permission denied — please go to Firebase Console → Firestore → Rules and allow writes for authenticated or all users.";
+      } else if (error.code === "unavailable") {
+        msg.textContent = "❌ No internet connection. Please check your connection and try again.";
+      } else {
+        msg.textContent = "❌ Error (" + error.code + "): " + error.message;
+      }
+
+      btn.disabled    = false;
+      btn.textContent = "Submit Enrollment ";
+    }
+  };
+</script>
+
+</body>
+</html>
